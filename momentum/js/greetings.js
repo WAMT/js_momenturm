@@ -105,10 +105,45 @@
 
 // h1.addEventListener('click', clickEvent);
 
-const h1 = document.querySelector('.hello h1');
+//------------------------------------------------------------------
 
-const clickEvent = () => {
-	h1.classList.toggle('clicked');
+// const h1 = document.querySelector('.hello h1');
+
+// const clickEvent = () => {
+// 	h1.classList.toggle('clicked');
+// };
+
+// h1.addEventListener('click', clickEvent);
+
+// const loginForm = document.querySelector('#login-form');
+// const loginInput = loginForm.querySelector('input');
+// const loginButton = loginForm.querySelector('button');
+
+const loginForm = document.querySelector('#login-form');
+const loginInput = document.querySelector('input');
+const loginh1 = document.querySelector('#h1text');
+
+const HIDE = 'hidden';
+const USER = 'user';
+
+const submitValue = (event) => {
+	event.preventDefault();
+	loginForm.classList.add(HIDE);
+	const username = loginInput.value;
+	localStorage.setItem(USER, username);
+	devUser(username);
 };
 
-h1.addEventListener('click', clickEvent);
+const devUser = (username) => {
+	loginh1.innerText = 'HELLO ' + username;
+	loginh1.classList.remove(HIDE);
+};
+
+const SavedUserName = localStorage.getItem(USER);
+
+if (SavedUserName == null) {
+	loginForm.classList.remove(HIDE);
+	loginForm.addEventListener('submit', submitValue);
+} else {
+	devUser(SavedUserName);
+}
